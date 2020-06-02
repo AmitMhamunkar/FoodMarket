@@ -1,0 +1,10 @@
+{% include 'header.html' %}
+<form method='POST'>
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type='submit' value='Add Food'>
+    {% csrf_token %}
+</form>
+<a href="/">home</a>
+{% include 'footer.html' %}

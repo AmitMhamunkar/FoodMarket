@@ -1,0 +1,26 @@
+{% include "header.html" %}
+<html>
+    <head>
+        <title>Order</title>
+    </head>
+    <body>
+    <header>
+        </header>
+        <table border="10">
+            <caption>Order for {{ request.session.email }}</caption>
+            <tr>
+                <th>order Id</th>
+                <th>Total bill</th>
+                <th>Order Date</th>
+            </tr>
+                {% for o in order %}
+            <tr>
+                <td>{{o.id}}</td>
+                <td>{{o.totalamt}}</td>
+                <td>{{o.date}}</td>
+            </tr>
+                {% endfor %}
+        </table>        
+     </body>
+</html>
+{% include "footer.html" %}

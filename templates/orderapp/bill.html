@@ -1,0 +1,19 @@
+ {% include "home.html" %}
+<html>
+    <head>
+        <title>Order</title>
+    </head>
+	<script>
+            $(document).ready(function(){
+                $.get('/cartapp/total/',function(data){
+					alert(data)
+                $('#total').val(data);
+                });
+            });
+			</script>
+    <body>
+		Username :<input type="text" value="{{ request.session.email }} " readonly /><br/>
+			total Amount:<input type="text" id="total" readonly /><br/>	
+            
+     </body>
+</html>

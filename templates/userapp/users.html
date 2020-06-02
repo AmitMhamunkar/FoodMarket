@@ -1,0 +1,28 @@
+{% include "header.html" %}
+{% load static %}
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Email</th>
+        <th>Password</th>
+		<th> Action</th>
+    </tr>
+    {% if users %}
+        {% for u in users%}
+        <tr>
+            <td>{{u.id}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.password}}</td>
+			<td colspan=2>
+				<a href="/userapp/update/{{u.id}}"><img src="{% static 'images/edit.png'%}" width=30 height=30 alt='update'></a>
+				<a href="/userapp/delete/{{u.id}}"><img src="{% static 'images/delete.png'%}" width=30 height=30 alt='delete'></a>
+			</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+</table>
+<h5 colspan=2>
+<a href='/userapp/users/'><img src="{% static 'images/users.png'%}" width=30 height=30 alt='alluser'></a> &nbsp;  <a href='/userapp/adduser/'>ADDUSER</a>
+</h5>
+<a href='/'>Home</a>
+{% include "footer.html" %}

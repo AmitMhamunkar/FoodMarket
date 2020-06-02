@@ -1,0 +1,31 @@
+{% include 'header.html' %}
+<html>
+	<body>
+		
+		<script>
+			$(document).ready(function(){
+				$("#email").blur(function(){
+				var email= $("#email").val();
+				$.get('/userapp/restTest/',{'email':email},function(data){
+					$("span").text(data)
+                    if(data=='Already Exist')
+                    {
+                        $("#btnsubmit").attr('disabled','disabled')
+                    }                    
+                });	
+				
+				});
+			});
+		</script>
+	
+		<form method="POST">
+			<label for="email" >Email Adress</label>
+			<input type="email" name="email" id="email"><span style="color:red"></span><br/>
+			<label for="password" >password</label>
+			<input type="password" name="password" id="password"><br/>
+			<input type="submit" value="registration" id="btnsubmit">
+			{% csrf_token %}
+		</form>
+	</body>
+</html>
+{% include 'footer.html' %}		

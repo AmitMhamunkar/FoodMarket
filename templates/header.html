@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load static %}
+<script src="{% static 'scripts/jquery.min.js'   %}"></script>
+	
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tea and Meal - Free CSS Template</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+{% load staticfiles %}
+<link href="{% static 'css/templatemo_style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+
+<div id="templatemo_container">
+	<div id="templatemo_header">
+    	<div id="site_title"></div>
+    </div> <!-- end of header -->
+    
+    <div id="templatemo_menu">
+        <ul>
+        	<li class="current"><a href="/"><b>Home</b></a></li>
+            <li><a href="/foodapp/foods/"><b>Food Menu</b></a></li>
+            
+{% if request.session.utype == "user" %}
+<li><a href="/userapp/update/"><b>Change Password</b></a></li>
+{% endif %}
+{% if request.session.utype is None %}
+            
+            <li><a href="/userapp/userlogin/"><b>Login</b></a></li>
+            <li><a href="/userapp/adduser/"><b>Register</b></a></li>
+{% endif %}
+{% if request.session.utype == "user" %}
+<li><a href="/cartapp/showcart/"><b>My Cart</b></a></li>
+<li><a href="/orderapp/showorder/"><b>My Order</b></a></li>
+<li><a href="/userapp/update/ "><b>Update Profile</b></a></li>
+
+<li><a href="/userapp/logout/"><b>Logout</b></a></li>
+{% endif %}
+
+{% if request.session.utype == "admin" %}
+<!--<li><a href="/foodapp/foods/"><b>ALL FOODS</b></a></li> -->
+<li><a href="/userapp/users/"><b>All User</b></a></li>
+<li><a href="/userapp/update/"><b>Change Password</b></a></li>
+			<li><a href="/foodapp/addfood"><b>Add Foods</b></a></li>
+<li><a href="/userapp/logout/"><b>Logout</b></a></li>
+{% endif %}
+
+
+            <li ><a href="#"><b>Contact Us</b></a></li>
+        </ul>
+    </div> <!-- end of menu -->
+</body>
+</html>

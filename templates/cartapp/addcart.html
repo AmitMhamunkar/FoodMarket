@@ -1,0 +1,53 @@
+{% include 'header.html' %}
+<html>
+    <body>
+<form name="form" action="/cartapp/addToCart" method="POST">
+	<script>
+		$(document).ready(function(){
+			$("#foodQuantity").blur(function (){
+               var foodQuantity=$("#foodQuantity").val()
+               var foodIdfk=$("#foodIdfk").val()
+               $.get('/cartapp/Check/',{'foodQuantity':foodQuantity,'foodIdfk':foodIdfk},function(data){
+               alert(data)
+			   if (data=="Out of Stock")
+			   {
+			   //$("#submit").attr("disabled",true);
+			   }
+			   });
+              // $("#submit").removeAttr("disabled");
+            });
+			});
+	</script>
+	{% if messages %}
+	{% for m in messages %}
+<script>
+	alert("{{ m }}");
+</script>	
+{% endfor %}
+{% endif %}
+    {% csrf_token %}
+    <table border="1">
+        <tr>
+            <caption>AddCart</caption>
+            <td>FoodId:</td>
+            <td><input type="text" style="margin-left : 20%;" placeholder="Identifiant" 
+                       name="foodIdfk" value="{{foodIdfk}}" id="foodIdfk" readonly/></td>
+        </tr>
+        <tr>
+            <td>EmailID:</td>
+            <td><input type="text" style="margin-left:20%;" placeholder="Identifiant"
+                       name="emailIdfk" value="{{request.session.email}}" readonly /></td>
+           </tr>
+            <tr>
+                <td> FOOD Quantity</td>
+                <td><input type="text" style="margin-left:20%;" placeholder="Identifiant"
+                       name="foodQuantity" id="foodQuantity"/></td>
+        </tr>
+    </table>
+    <input type="submit" id="submit" value="submit">
+    <input type="reset" value="clear">
+</form>
+</body>
+</html>
+{% include 'footer.html' %}
+         

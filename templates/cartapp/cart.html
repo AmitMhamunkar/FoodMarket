@@ -1,0 +1,45 @@
+{% include 'header.html' %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Inser title</title>
+		<script>
+            $(document).ready(function(){
+                $.get('/cartapp/total/',function(data){
+                $('#total').val(data);
+                });
+            });
+			</script>
+        </head>
+            <body>
+                <form name="form" action="/orderapp/placeOrderView/" method="POST">
+                    {% csrf_token %}
+                   <table>
+					    {% if cart %}
+                       <caption><h1>Cart List</h1></caption>
+                       <tr>
+                           <th>Food ID</th>
+                           <th>Food name</th>
+                           <th>Food Price</th>
+                           <th>Cart Quantity</th>
+						   <th>action</th>
+					   </tr>
+                       {% for c in cart %}
+                       <tr>
+                           <td>{{c.id}}</td>
+                           <td>{{c.name}}</td>
+                           <td>{{c.price}}</td>
+                           <td>{{c.foodQuantity}}</td>
+						   <td><a href="/cartapp/delete/{{c.id}}">delete</a></td>
+                       </tr>    
+                        {% endfor %}
+                    </table>
+total: <input type="text" id="total" name="total" ><br/>					
+<input type="submit" value="place order"/>
+		{% else %}
+		{{ error }}
+		 {% endif %}
+</form>
+</body>
+</html>
+{% include "footer.html" %}

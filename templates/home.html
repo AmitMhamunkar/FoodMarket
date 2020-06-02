@@ -1,0 +1,30 @@
+{% load static %}
+<script src="{% static 'scripts/jquery.min.js'   %}"></script>
+
+{% if request.session.email %}
+<h1> welcome, {{ request.session.email }}</h1>
+<a href="/foodapp/foods/">ALL FOODS</a>
+&nbsp;
+<a href="/cartapp/showcart/">CART</a>
+&nbsp;
+<a href="/orderapp/showorder/">ORDER</a>
+&nbsp;
+<a href="/userapp/update/ ">UPDATE Profile</a>
+&nbsp;
+<a href="/userapp/logout/">LOGOUT</a>
+&nbsp;
+{% else %}
+	{% if request.session.userType  %}
+	<a href="/userapp/users/">ALL USERS</a>
+	&nbsp;
+	<a href="/foodapp/foods/">ALL FOODS</a>
+	&nbsp;
+	{% else %}
+	<h1> welcome , Guest</h1>
+	<a href="/userapp/userlogin/">SIGN IN</a>
+	&nbsp;
+	<a href="/userapp/adduser/">SIGN UP</a>
+	&nbsp;
+	<a href="/foodapp/foods/">ALL FOODS</a>
+	{% endif %}
+{% endif %}

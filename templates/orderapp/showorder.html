@@ -1,0 +1,29 @@
+{% include "header.html" %}
+<html>
+    <body>
+<form name="form" action="/orderapp/showorder" method="POST">
+    {% csrf_token %}
+    <table border="1">
+        <tr>
+            <caption>AddCart</caption>
+            <td>email:</td>
+            <td><input type="text" style="margin-left : 20%;" placeholder="Identifiant" 
+                       name="foodIdfk" value="{{request.session.email}}" readonly/></td>
+        </tr>
+        <tr>
+            <td>date:</td>
+            <td><input type="text" style="margin-left:20%;" placeholder="Identifiant"
+                       name="emailIdfk" value="{{date}}" readonly /></td>
+           </tr>
+            <tr>
+                <td> total</td>
+                <td><input type="text" style="margin-left:20%;" placeholder="Identifiant"
+                       name="foodQuantity" value="{{total}}"/></td>
+        </tr>
+    </table>
+    <input type="submit" value="submit">
+    <input type="reset" value="clear">
+</form>
+</body>
+</html>
+ {% include "footer.html" %}        

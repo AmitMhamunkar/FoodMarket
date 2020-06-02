@@ -1,0 +1,90 @@
+{% load static %}
+{% include 'header.html' %}
+{% if messages %}
+	{% for m in messages %}
+<script>
+	alert("{{ m }}");
+</script>	
+{% endfor %}
+{% endif %}
+<script>
+	$(document).ready(function(){
+		$("#food").blur(function(){
+			$('#ss').html("");
+			var food=$("#food").val();
+			if (food.length > 0)
+			{
+				var url="/foodapp/search/"+$("#food").val();
+				//alert(url);
+				$.get(url,function(data,status){
+					
+				$.each(data,function(obj){
+					
+					if(obj != null) {
+						for(var i=0; i < data['food'].length;i++)
+						{
+							var link = '/cartapp/addToCart/'+data['food'][i]['pk'];
+							//alert(url);
+							$("#t").css("display","block");
+							$("#ss").append(
+								"<tr><td>"+data['food'][i]['pk']+
+								"</td><td>"+data['food'][i]['fields']['name']+
+								"</td><td>"+data['food'][i]['fields']['price']+
+								"</td><td>"+data['food'][i]['fields']['quantity']+
+								"</td><td><a href="+link+"><img src='{% static 'images/cart.png' %}' width=30 height=30 alt='ADD CART'></a>"+
+								"</td></tr>"
+								);
+						}
+					}
+				});
+			});
+			}
+			if (food.length == 0)
+			{
+				location.replace('/foodapp/foods')
+			}
+		});
+	});
+            			
+</script>
+<tr><input type="text" id="food" placeholder="Search"></tr>
+<table id="t" >
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+		{% if request.session.userType != 'Admin' %}
+		<th> Action</th>
+		{% endif %}
+    </tr>
+	<tbody id="ss">
+    {% if allfoods %}
+        {% for f in allfoods %}
+        <tr>
+            <td>{{f.id}}</td>
+            <td>{{f.name}}</td>
+            <td>{{f.price}}</td>
+            <td>{{f.quantity}}</td>
+			<td colspan=3>
+				{% if request.session.utype == "user"  %}
+				<a href="/cartapp/addToCart/{{f.id}}"><img src="{% static 'images/cart.png' %}" width=30 height=30 alt='ADD CART'></a>
+				{% endif %}
+				{% if request.session.utype == "admin" %}
+				<a href="/foodapp/update/{{f.id}}"><img src="{% static 'images/edit.png' %}" width=30 height=30 alt='update'></a>
+				<a href="/foodapp/delete/{{f.id}}"><img src="{% static 'images/delete.png' %}" width=30 height=30 alt='delete'></a>
+				{% endif %}	
+			</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+<tbody>		
+</table>
+<!--
+<h5 colspan=2>
+<a href='/foodapp/foods'><img src="{% static 'images/foods.png' %}" width=30 height=30 alt='alluser'></a> 
+&nbsp;  <a href='/foodapp/addfood'><img src="{% static 'images/add.png' %}" width=30 height=30 alt='adduser'></a>
+</h5> -->
+&nbsp;
+<a href='/'>home</a>
+{% include 'footer.html' %}

@@ -1,0 +1,10 @@
+{% include "header.html" %}
+<form method='POST'>
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type='submit' value='Add User'>
+    {% csrf_token %}
+</form>
+<a href="/">Home</a>
+{% inlude "footer.html" %}
